@@ -33,6 +33,14 @@ app.get('/tweets22', (req, res) => {
       
     })
 })
+// app.post('/tweets22', (req, res) => {
+//     const inputtext = req.body.textarea;
+//     const newinput = new User({textarea: inputtext});
+//     newinput.save();
+//     res.render('twitter/tweets22', {
+//         inputtext: inputtext
+//     })
+// })
 
 app.post("/tweets22", (req, res) => {
     const newName = req.body.name;
