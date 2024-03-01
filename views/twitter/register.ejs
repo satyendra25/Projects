@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    .gradient-custom-3 {
+      /* fallback for old browsers */
+      background: #84fab0;
+
+      /* Chrome 10-25, Safari 5.1-6 */
+      background: -webkit-linear-gradient(to right, rgba(132, 250, 176, 0.5), rgba(143, 211, 244, 0.5));
+
+      /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+      background: linear-gradient(to right, rgba(132, 250, 176, 0.5), rgba(143, 211, 244, 0.5))
+    }
+
+    .gradient-custom-4 {
+      /* fallback for old browsers */
+      background: #84fab0;
+
+      /* Chrome 10-25, Safari 5.1-6 */
+      background: -webkit-linear-gradient(to right, rgba(132, 250, 176, 1), rgba(143, 211, 244, 1));
+
+      /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+      background: linear-gradient(to right, rgba(132, 250, 176, 1), rgba(143, 211, 244, 1))
+    }
+
+    .fa-brands {
+      margin-top: 7px;
+      margin-right: 15px;
+    }
+  </style>
+  <%- include('header.ejs') -%>
+</head>
+
+<body>
+  <section class="vh-100 bg-image"
+    style="background-image: url('https://mdbcdn.b-cdn.net/img/Photos/new-templates/search-box/img4.webp');">
+    <div class="mask d-flex align-items-center h-100 gradient-custom-3">
+      <div class="container h-100">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+          <div class="col-12 col-md-9 col-lg-7 col-xl-6">
+            <div class=" card mt-2 px-5 pb-3"  style="color: rgb(13, 197, 253);">
+              <!-- <i class="fas fa-crow fa-2x me-3 pt-5 mt-xl-4" style="color: #709085;"></i> -->
+              <span class="d-flex justify-content-center h1 fw-bold mb-0"> <i class=" fa-brands fa-twitter"></i>
+                twitter</span>
+            </div>
+            <div class="card mt-2" style="border-radius: 15px;">
+              <div class="card-body p-5 pt-4 pb-3">
+                <h2 class="text-uppercase text-center mb-4">Register</h2>
+                <h5 class="text-uppercase text-center mb-3">Create an account</h5>
+
+                <form action="/tweets" method="POST">
+                  <div class="form-outline mb-3">
+                    <label class="form-label" for="name">Your Name <i class="fa-solid fa-user"></i></label>
+                    <input type="text" name="yourname" id="name" placeholder="Name" class="form-control form-control-lg" required />
+                  </div>
+
+                  <div class="form-outline mb-3">
+                    <label class="form-label" for="email">Your Email <i
+                        class="fa-solid fa-envelope"></i></label>
+                    <input type="email" id="email" name="email" placeholder="Email"class="form-control form-control-lg" required/>
+                  </div>
+
+                  <div class="form-outline mb-3">
+                    <label class="form-label" for="password">Password <i class="fa-solid fa-key"></i></label>
+                    <input type="password" id="password" name="password" placeholder="Password"class="form-control form-control-lg" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+                    title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters"
+                    required />
+                  </div>
+
+                  <!-- <div class="form-outline mb-4">
+                  <input type="password" id="form3Example4cdg" class="form-control form-control-lg" />
+                  <label class="form-label" for="form3Example4cdg">Repeat your password</label>
+                </div> -->
+
+                  <!-- <div class="form-check d-flex justify-content-center mb-5">
+                  <input class="form-check-input me-2" type="checkbox" value="" id="form2Example3cg" />
+                  <label class="form-check-label" for="form2Example3g">
+                    I agree all statements in <a href="#!" class="text-body"><u>Terms of service</u></a>
+                  </label>  
+                </div> -->
+
+                  <div class="d-md-flex justify-content-md-end">
+                    <button type="submit" value="Submit"
+                      class="btn btn-success btn-block btn-lg gradient-custom-4 mt-0 text-body"> Register</button>
+                  </div>
+
+                  <p class="text-center text-muted mt-2 mb-0">Have already an account? <a href="/login22"
+                      class="fw-bold text-body"><u>Login here</u></a></p>
+
+                </form>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</body>
+
+</html>
