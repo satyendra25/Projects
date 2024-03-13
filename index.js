@@ -1,6 +1,10 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 import mongoose from 'mongoose';
+// import encrypt from 'mongoose-encryption';
+import md5 from 'md5';
+// import 'dotenv/config';
+
 const app = express();
 const port = 5000;
 
@@ -15,6 +19,11 @@ const userSchema = new mongoose.Schema({
     password:String,
     textarea: String
 });
+
+const SECRET= "Thissatenishot";
+
+//  userSchema.plugin(encrypt, { secret: process.env.SECRET, encryptedFields: ['password']});
+
 const User = new mongoose.model("User", userSchema);
 
 // const User = mongoose.model('User', { name: String, email: String, password: String });
@@ -29,27 +38,21 @@ app.get('/', (req, res) => {
 })
 
 app.get('/tweets22', (req, res) => {
-    res.render('twitter/tweets22',{
+    res.render('twitter/tweets22',{  welcome: ''
       
     })
 })
-// app.post('/tweets22', (req, res) => {
-//     const inputtext = req.body.textarea;
-//     const newinput = new User({textarea: inputtext});
-//     newinput.save();
-//     res.render('twitter/tweets22', {
-//         inputtext: inputtext
-//     })
-// })
 
 app.post("/tweets22", (req, res) => {
     const newName = req.body.name;
     const text = req.body.textarea;
-    
+    const welcome = "Welcome to tweet page";
     res.render('twitter/tweets22', {
-        text, newName
+        text, newName,
+        welcome
     })
 })
+
 
 
 // app.get(delete)
@@ -59,40 +62,58 @@ app.post('/delete', function(req, res) {
     res.render('twitter/tweets', {textdata
     })
 })
+app.get('/ip', function(req, res) {
+    const clientIP = req.headers['x-forworded-for'] || req.connection.remoteAddress;
+    console.log(clientIP)
+})
 
 app.get('/register22', (req, res) => {
-    res.render('twitter/register22')
+    res.render('twitter/register22', { message: ''})
 })
-app.post("/register22", (req, res) => {
+
+app.post("/register22", async (req, res) => {
     const newUser = new User({
         name: req.body.name,
         email:req.body.email,
-        password:req.body.password
+        password: md5(req.body.password)
     })
     newUser.save();
-    res.render('twitter/tweets22')
+    const { email,password } = md5(req.body);  
+    try {
+        // Check if email already exists
+        const existingUser = await User.findOne({ email });
+        if (existingUser) {
+            return res.render('twitter/register22', { message: 'Email already registered' });
+        }
+        // If email does not exist, create new user
+        await User.create({ email, password });
+        // res.send('User registered successfully');       
+    res.render('twitter/tweets22', { welcome: " Welcome to Tweets page though Registration"})
+    } catch (error) {
+        console.error('Error registering user:', error);
+        res.status(500).send('Internal Server Error');
+    }
 })
 
 app.get('/login22', (req, res) => {
-    const msg = "Welcome to Twitter"
-    const login = "Login"
-    res.render('twitter/login22', {
-        msg, login
-    })
+    res.render('twitter/login22', { incorrect: '' })
 })
 
 app.post('/login22', (req, res) => {
     const email = req.body.email;
-    const password = req.body.password;
+    const password = md5(req.body.password);
     User.findOne({ email: email }).then((foundUser) => {
         if(foundUser) {
             if(foundUser.password === password) {
-                res.redirect('/tweets22')
+                // res.redirect('/tweets22', {welcome: "Welcome to tweets page"})
+                res.render('twitter/tweets22', { welcome: "Welcome to tweets page through login"})
             }else {
                 res.redirect('/login22')
             }
         } else {
-            res.redirect('/login22')
+            // res.redirect('/login22')
+            res.render('twitter/login22' , { incorrect : "The email id or password that you've entered is incorrect."})
+
         }
     })
 })

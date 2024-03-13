@@ -1,2 +1,11 @@
 node_modules
 
+.env
+Password_generator.java
+db.js
+
+princeNodejs/
+
+views/person.ejs
+
+
