@@ -1,39 +1,10 @@
 node_modules
-models
-routers
+
 
 .env       
-Password_generator.java
-db.js
-all.js
-index.docs
-index8.js
-index9.js
-interview.html
-new.js
-Password_generator.java
-server.js
-Student.java
-test.js
-todo.html
-todo.js
+
 
 princeNodejs/
-
-views/person.ejs
-views/tweets.ejs
-views/search.ejs
-views/rightSidebar.ejs
-views/profile.ejs
-views/menu.ejs
-views/main.ejs
-views/list.ejs
-views/leftSidebar.ejs
-views/header.ejs
-views/edit-profile.ejs
-views/addlist.ejs
-views/todo/
-views/capston_project
 
 
 
