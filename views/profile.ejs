@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile</title>
+    <%- include('header.ejs') -%>
+</head>
+<body>
+    
+   <div class="container">
+    <h1>User Profile</h1>
+    <p>Name: <%= user.name %></p>
+    <p>Email: <%= user.email %></p>
+
+    <!-- Edit Profile button -->
+    <a href="/edit-profile" class="btn">Edit Profile</a>
+
+    <!-- Display success or error messages -->
+    <% if (typeof successMessage !== 'undefined') { %>
+        <p style="color: green;"><%= successMessage %></p>
+    <% } %>
+    <% if (typeof errorMessage !== 'undefined') { %>
+        <p style="color: red;"><%= errorMessage %></p>
+    <% } %>
+   
+    <a href="/">Home page</a>
+   </div>
+</body>
+</html>

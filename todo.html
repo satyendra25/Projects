@@ -1,0 +1,184 @@
+import express from "express";
+import bodyParser from "body-parser";
+import mongoose from "mongoose";
+const app = express();
+const port = 5000;
+app.set('view engine', 'ejs');
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.static("public"));
+mongoose.connect("mongodb://localhost:27017/todolistdb", { useNewUrlParser: true });
+
+const itemSchema = new mongoose.Schema({
+    name: String
+});
+
+const Item = mongoose.model("Item", itemSchema);
+const item1 = new Item({
+    name: "Saten"
+});
+const item2 = new Item({
+    name: "Sandhya"
+});
+
+const listsSchema = new mongoose.Schema({ name: String })
+const List = mongoose.model("List", listsSchema);
+const list1 = new List({ name: "Baghel" });
+
+app.get("/", (req, res) => {
+    // const today = new Date();
+    // const options = { name: "String"  }
+    const now = "Lists";
+
+    Item.find({}).then((items) => {
+        if (items.length == 0) {
+            Item.insertMany([item1, item2]);
+            res.redirect("/");
+        } else {
+            res.render("index", {
+                titleName: now,
+                listItems: items
+            })
+        }
+    })
+})
+
+app.post('/', function (req, res) {
+    const item = req.body.newItem;
+    const newItem = new Item({ name: item });
+    newItem.save();
+    res.redirect("/");
+})
+
+app.get('/list', (req, res) => {
+    // const listName = req.body.item;
+    const listName = "ListName";
+    
+     Item.find({}).then((lists) => {
+        if (lists.length == 0) {
+            List.insertOne([list1]);
+            res.redirect("/");
+        } else {
+            res.render("list", {
+                titleName: listName,
+                listItem: lists
+            })
+        }
+    })
+
+})
+app.post('/list', function (req, res) {
+    const list = req.body.newList;
+    const newList = new List({ name: list });
+    newList.save();
+    res.redirect("/list");
+})
+
+app.get('/addlist', (req, res) => {
+    const addlist = "AddLists";
+    res.render('addlist', {
+        addlist
+    })
+})
+app.post("/submit", (req, res) => {
+    const addlist = "AddLists";
+    res.render('addlist', { addlist })
+})
+
+app.post("/delete", function (req, res) {
+    console.log(req.body);
+    const id = req.body.list;
+    Item.findByIdAndDelete(id).exec();
+    res.redirect('/');
+});
+
+
+
+app.get("/:listID", function (req, res) {
+    console.log(req.params.listID);
+    // find by ID 
+    // render the list
+})
+app.listen(port, () => {
+    console.log("My First express project live");
+})
+
+
+
+<!-- add.ejs -->
+<%- include('header.ejs'); %>
+<div class="box" id="heading">
+    <h1>  <%= addlist %>  </h1>   
+</div>
+<div class="box n">
+   
+        <form action="/" class="ite addlist" method="POST">
+            <input type="text" name="newItem" placeholder="New Item" autocomplete="off">
+            <button type="submit" class="addbtn" name="list" value="submit">Submit</button>
+        </form>  
+</div>
+
+<%- include('footer.ejs'); %>
+
+<!-- list.ejs -->
+<%- include('header.ejs'); %>
+    <form action="">
+        <a href="/"><i class="fa fa-solid fa-right-arrow backbtn">back</i></a>
+        <!-- <button class="backbtn">back</button> -->
+    </form>
+    <div class="box" id="heading">
+        <h1>
+            <%= titleName %>
+        </h1>
+    </div>
+    <div class="n box">
+        <% for(let list of listItem) { %>
+            <form action="/delete" method="POST">
+                <div class="item">
+                    <input type="checkbox" name="list" value="<%= list._id %>" onChange="this.form.submit()">
+                    <p>
+                    
+                        <%= list.name %>
+                            <!-- only show name -->
+                    </p>
+                </div>
+            </form>
+            <% } %>
+                <form action="/list" class="item" method="post">
+                    <input type="text" class="listtext" name="newList" placeholder="Add New Item" autocomplete="off">
+                    <button type="submit" class="listbtn" name="list" value="">+</button>
+                </form>
+    </div>
+    <%- include('footer.ejs'); %>
+
+ <!-- index.ejs -->
+    <!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>todoList</title>
+</head>
+<body>
+    <%- include('header.ejs'); %>
+        <div class="box" id="heading">
+            <h1><%= titleName %>   </h1>                        
+        </div>
+        <div class="box2">
+           
+            <% for(let item of listItems) { %>
+                <div class="item">
+                    <!-- <p>two default list add automatically from data base</p> 
+               <p>click here to print list name only </p> -->
+                    <a href="/list"><%= item.name %></a>                                          
+                   
+                </div>
+                <% } %>
+        </div>
+        <form action="/list">
+            <button class="plusbtn" type="submit"><a href="/addlist">+</a></button>
+        </form>
+        <%- include('footer.ejs'); %>
+</body>
+
+</html>

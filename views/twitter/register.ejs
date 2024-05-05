@@ -9,7 +9,7 @@
         <link rel="stylesheet" href="../../public/style/login.css">
 </head>
 <style>
-    * {
+    * { 
         font-family: "Anta", sans-sarif;
     }
 
@@ -54,23 +54,26 @@
                         Welcome back !
                     </h5>
                     <h1 class="text-center" style="color: red;">
-                        <% if (message) { %>
-                            <p>
-                                <%= message %>
-                            </p>
-                            <% } %>
+                       
                     </h1>
-                    <form action="/register22" method="post" class="row g-3 justify-content-center">
+                    <form action="/register" method="post" class="row g-3 justify-content-center">
+                        
                         <div class="col-md-7 form-outline mb-2">
                             <label class="form-label" for="name">Name <i class="fa-solid fa-user"></i></label>
                             <input type="text" id="name" name="name" placeholder="Name" class="form-control" required>
-                        </div>
+                        </div>        
+                        
                         <div class="col-md-7 form-outline mb-2">
-                            <label class="form-label" for="email">Email <i class="fa-solid fa-envelope"></i></label>
-                            <input type="email" id="email" name="email" placeholder="Email" class="form-control"
+                            <label class="form-label" for="name">Email <i class="fa-solid fa-envelope"></i></label>
+                            <input type="text" id="name" name="username" placeholder=" Email" class="form-control" required>
+                        </div>
+                       
+                        <div class="col-md-7 form-outline mb-2">
+                            <label class="form-label" for="email">Confirm Email <i class="fa-solid fa-envelope"></i></label>
+                            <input type="email" id="email" name="email" placeholder="Confirm Email" class="form-control"
                                 required>
                         </div>
-
+                        
                         <div class="col-md-7 form-outline mb-2">
                             <label class="form-label" for="password">Password <i class="fa-solid fa-key"></i></label>
                             <input type="password" id="password" name="password" placeholder="Password"
@@ -86,7 +89,7 @@
                     </form>
                     <div class="swap row justify-content-center">
                         <div class="col-7">
-                            <p class="text-center text-muted mt-3">Already an user? <a href="/login22"
+                            <p class="text-center text-muted mt-3">Already an user? <a href="/login"
                                     class="fw-bold text-body">Login here</a></p>
                         </div>
                     </div>
