@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tea Management System</title>
+    <link rel="stylesheet" href="style.css">
+   
+</head>
+<body>
+    <div class="header">
+        <h1>Tea Management System</h1>
+    </div>
+    <div>
+        <h2>What would you like: Tea or Coffee?</h2>
+        <div class="main">
+            <form id="form">
+                <input type="text" id="tea" placeholder="Tea Name" value="Tea" required>
+                <input type="number" id="quantity" placeholder="Quantity" required>
+                <input type="number" id="price" placeholder="Price" required>
+                <button type="submit">Add Item</button>
+            </form>
+        </div>
+        <table id="itemsTable">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Quantity</th>
+                    <th>Price</th>
+                    <th>Item Total</th>
+                </tr>
+            </thead>
+            <tbody id="tableBody">
+                
+            </tbody>
+        </table>
+        <div class="totalprice">Total Price: &#8377;<span id="totalPrice">0.00</span></div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
